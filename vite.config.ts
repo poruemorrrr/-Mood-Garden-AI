@@ -70,6 +70,30 @@ function apiServerPlugin(): Plugin {
             return;
           }
 
+          if (endpoint === 'micro-task-breaker') {
+            const { breakdownMicroTasks } = await import('./src/server/geminiHandler.ts');
+            const result = await breakdownMicroTasks(body);
+            res.statusCode = 200;
+            res.end(JSON.stringify(result));
+            return;
+          }
+
+          if (endpoint === 'companion-cheer') {
+            const { generateCompanionCheer } = await import('./src/server/geminiHandler.ts');
+            const result = await generateCompanionCheer(body);
+            res.statusCode = 200;
+            res.end(JSON.stringify(result));
+            return;
+          }
+
+          if (endpoint === 'adhd-monthly-report') {
+            const { generateADHDMonthlyReport } = await import('./src/server/geminiHandler.ts');
+            const result = await generateADHDMonthlyReport(body);
+            res.statusCode = 200;
+            res.end(JSON.stringify(result));
+            return;
+          }
+
           res.statusCode = 404;
           res.end(JSON.stringify({ error: 'Endpoint not found' }));
         } catch (error: any) {

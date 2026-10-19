@@ -110,3 +110,55 @@ export const SANCTUARY_ZONES = [
     minFocusMinutes: 60,
   },
 ];
+
+export const GARDEN_ANIMALS = [
+  {
+    id: 'bunny',
+    name: 'Baby Bunny',
+    nameTh: 'กระต่ายน้อยขนปุย',
+    emoji: '🐰',
+    unlockPoints: 25,
+    description: 'กระโดดดุ๊กดิ๊กอยู่ข้างกอดอกไม้ ให้กำลังใจทุกครั้งที่เริ่มงาน',
+  },
+  {
+    id: 'squirrel',
+    name: 'Fluffy Squirrel',
+    nameTh: 'กระรอกหางฟูนักสะสม',
+    emoji: '🐿️',
+    unlockPoints: 60,
+    description: 'ชอบวิ่งเก็บลูกสนและคอยมองดูเธอทำการบ้านอย่างตั้งใจ',
+  },
+  {
+    id: 'songbird',
+    name: 'Chirping Finch',
+    nameTh: 'ลูกนกกระจิบเพลงเพราะ',
+    emoji: '🐦',
+    unlockPoints: 100,
+    description: 'เกาะบนกิ่งไม้ร้องเพลงเบาๆ เป็นสัญญาณว่าสมาธิกำลังมา',
+  },
+  {
+    id: 'duckling',
+    name: 'Happy Duckling',
+    nameTh: 'ลูกเป็ดน้อยลอยน้ำ',
+    emoji: '🦆',
+    unlockPoints: 160,
+    description: 'ว่ายน้ำตุ๊บป่องในสระบัว ช่วยให้จิตใจร่มเย็นไม่ว้าวุ่น',
+  },
+  {
+    id: 'hedgehog',
+    name: 'Gentle Hedgehog',
+    nameTh: 'เม่นแคระตัวกลม',
+    emoji: '🦔',
+    unlockPoints: 230,
+    description: 'ขดตัวนอนใต้พุ่มไม้ คอยเตือนให้เธออย่าลืมพักผ่อน',
+  },
+  {
+    id: 'ladybug',
+    name: 'Lucky Ladybug',
+    nameTh: 'เต่าทองนำโชค',
+    emoji: '🐞',
+    unlockPoints: 300,
+    description: 'เกาะบนกลีบดอกไม้ นำพาความสุขและโชคดีในการเรียนมาให้',
+  },
+];
+

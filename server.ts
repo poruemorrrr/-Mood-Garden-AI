@@ -56,6 +56,36 @@ app.post('/api/ai/weekly-report', async (req, res) => {
   }
 });
 
+app.post('/api/ai/micro-task-breaker', async (req, res) => {
+  try {
+    const { breakdownMicroTasks } = await import('./src/server/geminiHandler.ts');
+    const result = await breakdownMicroTasks(req.body);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error?.message || 'Server error' });
+  }
+});
+
+app.post('/api/ai/companion-cheer', async (req, res) => {
+  try {
+    const { generateCompanionCheer } = await import('./src/server/geminiHandler.ts');
+    const result = await generateCompanionCheer(req.body);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error?.message || 'Server error' });
+  }
+});
+
+app.post('/api/ai/adhd-monthly-report', async (req, res) => {
+  try {
+    const { generateADHDMonthlyReport } = await import('./src/server/geminiHandler.ts');
+    const result = await generateADHDMonthlyReport(req.body);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error?.message || 'Server error' });
+  }
+});
+
 // Serve frontend dist in production
 const distPath = path.join(__dirname, 'dist');
 app.use(express.static(distPath));
