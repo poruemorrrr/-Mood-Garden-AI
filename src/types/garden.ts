@@ -37,39 +37,6 @@ export interface GardenPlot {
   notes?: string;
 }
 
-export interface MicroTaskStep {
-  id: string;
-  title: string;
-  description: string;
-  estimatedMinutes: number;
-  points: number;
-  tip?: string;
-  completed: boolean;
-  completedAt?: string;
-  emotionReflected?: 'happy' | 'neutral' | 'stressed';
-}
-
-export interface BigGoalProject {
-  id: string;
-  title: string;
-  category: 'homework' | 'study' | 'room_bag' | 'creative' | 'routine';
-  steps: MicroTaskStep[];
-  createdAt: string;
-  totalEstimatedMinutes: number;
-  moodFlower: FlowerMoodType;
-  completed: boolean;
-}
-
-export interface GardenAnimal {
-  id: string;
-  name: string;
-  nameTh: string;
-  emoji: string;
-  unlockPoints: number;
-  description: string;
-  soundEffect?: string;
-}
-
 export interface FocusSessionRecord {
   id: string;
   timestamp: string;
@@ -83,8 +50,6 @@ export interface FocusSessionRecord {
   moodFlower: FlowerMoodType;
   selfFocusScore?: number; // 1 to 10
   distraction?: string;
-  postEmotion?: 'happy' | 'neutral' | 'stressed';
-  microTaskId?: string;
 }
 
 export interface UserHabitProfile {
@@ -97,13 +62,10 @@ export interface UserHabitProfile {
   totalSessionsAttempted: number;
   waterDrops: number;
   sunlightPoints: number;
-  totalRewardPoints: number; // Dopamine game score
   streakDays: number;
   unlockedSpecialFlowers: FlowerMoodType[];
   unlockedSanctuaryZones: string[];
-  unlockedAnimals: string[]; // ids of visiting cute animals
   hasCompletedOnboarding: boolean;
-  roleMode?: 'youth' | 'parent'; // View toggle for youth or parent
   adaptivePlan?: {
     strategyTitle: string;
     recommendedDuration: number;
@@ -121,4 +83,3 @@ export interface JournalEntry {
   feelingNote: string;
   aiReflection?: string;
 }
-

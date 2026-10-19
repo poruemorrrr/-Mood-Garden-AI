@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { GardenPlot, FlowerMoodType } from '../types/garden';
-import { FLOWER_MOODS, GARDEN_ANIMALS } from '../data/flowerConstants';
+import { FLOWER_MOODS } from '../data/flowerConstants';
 import { FlowerRenderer } from './FlowerRenderer';
-import { Droplet, Sun, Sparkles, Heart, Sprout, Plus, Play, Info, Zap } from 'lucide-react';
+import { Droplet, Sun, Sprout, Plus, Play } from 'lucide-react';
 import { soundSynth } from '../services/soundSynthesizer';
 
 interface GardenCanvasProps {
   plots: GardenPlot[];
   waterDrops: number;
   sunlightPoints: number;
-  rewardPoints: number;
-  unlockedAnimals: string[];
   onSelectPlot: (plot: GardenPlot) => void;
   onPlantNew: (plotIndex: number) => void;
   onWaterPlot: (plotId: string) => void;
@@ -21,15 +19,12 @@ export const GardenCanvas: React.FC<GardenCanvasProps> = ({
   plots,
   waterDrops,
   sunlightPoints,
-  rewardPoints,
-  unlockedAnimals,
   onSelectPlot,
   onPlantNew,
   onWaterPlot,
   onStartFocusOnFlower,
 }) => {
   const [selectedPlotId, setSelectedPlotId] = useState<string | null>(null);
-  const [animalTalkBubble, setAnimalTalkBubble] = useState<string | null>(null);
 
   const activePlot = plots.find((p) => p.id === selectedPlotId);
 
@@ -37,14 +32,6 @@ export const GardenCanvas: React.FC<GardenCanvasProps> = ({
     e.stopPropagation();
     soundSynth.playWaterSplash();
     onWaterPlot(plotId);
-  };
-
-  const handleAnimalClick = (animal: typeof GARDEN_ANIMALS[0]) => {
-    soundSynth.playSuccessFanfare();
-    setAnimalTalkBubble(`${animal.emoji} ${animal.nameTh}: "${animal.description}"`);
-    setTimeout(() => {
-      setAnimalTalkBubble(null);
-    }, 4500);
   };
 
   return (
@@ -72,14 +59,7 @@ export const GardenCanvas: React.FC<GardenCanvasProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-          {/* Dopamine Reward Points Counter */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-950/70 dark:to-yellow-950/70 rounded-xl border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 font-extrabold text-sm shadow-xs">
-            <Zap className="w-4 h-4 fill-amber-500 text-amber-500 animate-bounce" />
-            <span>{rewardPoints}</span>
-            <span className="text-xs font-semibold text-amber-800 dark:text-amber-300 hidden sm:inline">แต้มโดปามีน</span>
-          </div>
-
+        <div className="flex items-center gap-3">
           {/* Water Drops Counter */}
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 dark:bg-sky-950/50 rounded-xl border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 font-semibold text-sm">
             <Droplet className="w-4 h-4 fill-sky-400 text-sky-500" />
@@ -94,68 +74,6 @@ export const GardenCanvas: React.FC<GardenCanvasProps> = ({
             <span className="text-xs font-normal text-amber-600 dark:text-amber-400 hidden sm:inline">แสงแดด</span>
           </div>
         </div>
-      </div>
-
-      {/* Visiting Cute Animals Habitat Banner (System 3: Gamification & Immediate Reward) */}
-      <div className="relative z-10 mb-6 p-3 rounded-2xl bg-white/70 dark:bg-stone-800/70 backdrop-blur-sm border border-emerald-100/90 dark:border-stone-700/80">
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-stone-700 dark:text-stone-200">
-            <span>🐾 เพื่อนสัตว์น่ารักที่แวะมาเยี่ยมสวน ({unlockedAnimals.length}/{GARDEN_ANIMALS.length} ชนิด):</span>
-          </div>
-          <span className="text-[11px] text-stone-400">
-            แต้มสะสมยิ่งเยอะ สัตว์ยิ่งมาเยอะ!
-          </span>
-        </div>
-
-        {/* Animal avatars list */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-1">
-          {GARDEN_ANIMALS.map((animal) => {
-            const isUnlocked = unlockedAnimals.includes(animal.id) || rewardPoints >= animal.unlockPoints;
-            return (
-              <div
-                key={animal.id}
-                onClick={() => {
-                  if (isUnlocked) handleAnimalClick(animal);
-                }}
-                className={`relative px-3 py-2 rounded-2xl flex items-center gap-2 shrink-0 transition-all cursor-pointer ${
-                  isUnlocked
-                    ? 'bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-stone-800 dark:to-emerald-950/40 border border-emerald-200 dark:border-emerald-800 shadow-xs hover:scale-105'
-                    : 'bg-stone-100/60 dark:bg-stone-800/30 border border-dashed border-stone-300 dark:border-stone-700 opacity-50 cursor-not-allowed'
-                }`}
-              >
-                <span className={`text-2xl ${isUnlocked ? 'animate-bounce' : 'grayscale'}`} style={{ animationDuration: '2.5s' }}>
-                  {animal.emoji}
-                </span>
-                <div className="text-left">
-                  <div className="text-xs font-bold text-stone-800 dark:text-stone-100 flex items-center gap-1">
-                    <span>{animal.nameTh}</span>
-                    {!isUnlocked && (
-                      <span className="text-[9px] bg-stone-200 dark:bg-stone-700 px-1 rounded-sm text-stone-500">
-                        {animal.unlockPoints} แต้ม
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-[10px] text-stone-500 dark:text-stone-400 block truncate max-w-[110px]">
-                    {isUnlocked ? 'กดเพื่อทักทาย' : `ปลดล็อกที่ ${animal.unlockPoints} แต้ม`}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Animal dialogue bubble popup */}
-        {animalTalkBubble && (
-          <div className="mt-2 p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-900/50 text-xs text-amber-900 dark:text-amber-200 font-medium animate-fadeIn flex items-center justify-between">
-            <span>{animalTalkBubble}</span>
-            <button
-              onClick={() => setAnimalTalkBubble(null)}
-              className="text-stone-400 hover:text-stone-600 text-xs ml-2"
-            >
-              ✕
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Grid of 6 Interactive Plots */}
