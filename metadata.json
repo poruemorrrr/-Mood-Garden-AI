@@ -1,0 +1,6 @@
+{
+  "name": "Mood Garden AI — สวนดอกไม้อัจฉริยะเพื่อสมาธิและอารมณ์",
+  "description": "สวนดอกไม้อัจฉริยะเพื่อส่งเสริมสมาธิและสุขภาวะทางอารมณ์ในวัยรุ่น พร้อมระบบ Adaptive AI Focus Guardian, สวนพักใจ และรายงานวิเคราะห์พฤติกรรม",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
